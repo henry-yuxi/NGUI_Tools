@@ -1,0 +1,44 @@
+{"frames": {
+
+"login1.png":
+{
+	"frame": {"x":1,"y":1,"w":955,"h":201},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":955,"h":201},
+	"sourceSize": {"w":955,"h":201}
+},
+"login2.png":
+{
+	"frame": {"x":1,"y":204,"w":955,"h":201},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":955,"h":201},
+	"sourceSize": {"w":955,"h":201}
+},
+"register1.png":
+{
+	"frame": {"x":1,"y":407,"w":955,"h":201},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":955,"h":201},
+	"sourceSize": {"w":955,"h":201}
+},
+"register2.png":
+{
+	"frame": {"x":1,"y":610,"w":955,"h":201},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":955,"h":201},
+	"sourceSize": {"w":955,"h":201}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "UILogin.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":1024},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:5ce2601b0f6e3444dba6fae40146b7fd:19921a0ddaf1a4eb25684e62879876f1:19875f589cca79f05869b0abd01a933b$"
+}
+}

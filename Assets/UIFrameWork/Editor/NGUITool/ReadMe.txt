@@ -1,0 +1,29 @@
+批量创建不分离AlphaTP图集
+用TP工具创建NGUI图集的json文件和png图片 放入项目文件夹  
+然后选中存放的文件夹
+点击UIFrameWork/NGUI工具/批量创建不分离AlphaTP图集  就可以一键批量生成NGUI图集
+
+单个创建不分离Alpha的TP图集
+用TP工具创建NGUI图集的json文件和png图片 放入项目文件夹  
+然后选择需要创建图集的png图片
+点击UIFrameWork/NGUI工具/单个创建不分离Alpha的TP图集  就可以一键生成NGUI图集
+
+批量创建RGB和Alpha分离的TP图集
+用TP工具创建NGUI图集的json文件和png图片 放入项目文件夹  
+然后选中存放的文件夹
+点击UIFrameWork/NGUI工具/批量创建RGB和Alpha分离的TP图集  就可以一键批量生成NGUI图集
+
+单个创建RGB和Alpha分离的TP图集
+用TP工具创建NGUI图集的json文件和png图片 放入项目文件夹  
+然后选择需要创建图集的png图片
+点击UIFrameWork/NGUI工具/单个创建RGB和Alpha分离的TP图集 就可以一键生成NGUI图集
+
+
+批量创建NGUI美术字体字体
+用bmfont工具创建BitmapFont字体所需的fnt文件和png图片 放入项目文件夹  具体操作请百度
+点击UIFrameWork/NGUI工具/创建Bitmap字体  批量创建NGUI美术字体字体
+
+单个创建NGUI美术字体字体
+用bmfont工具创建BitmapFont字体所需的fnt文件和png图片 放入项目文件夹  具体操作请百度
+然后选择需要创建字体的png图片
+点击UIFrameWork/NGUI工具/创建Bitmap字体  单个创建NGUI美术字体字体
