@@ -47,7 +47,7 @@ public class CreateNGUIAtlaesWithTPForETC1
             Texture2D _mainTex = AssetDatabase.LoadAssetAtPath(path.Replace(".png", "_RGB.png"), typeof(Texture2D)) as Texture2D;
             Texture2D _alphaTex = AssetDatabase.LoadAssetAtPath(path.Replace(".png", "_Alpha.png"), typeof(Texture2D)) as Texture2D;
             mat.SetTexture("_MainTex", _mainTex);
-            mat.SetTexture("_AlphaTex", _alphaTex);
+            mat.SetTexture("_MainTex_A", _alphaTex);
             #endregion
 
             GameObject go = null;

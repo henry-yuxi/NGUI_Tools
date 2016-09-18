@@ -1,13 +1,13 @@
 fileFormatVersion: 2
 guid: 8f6f0ee5be756db47bbfafd26c85ca79
-timeCreated: 1473675093
+timeCreated: 1474209171
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -47,8 +47,23 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: -1
-  buildTargetSettings: []
+  textureType: 5
+  buildTargetSettings:
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: 34
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  - buildTarget: Windows
+    maxTextureSize: 2048
+    textureFormat: 34
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: 32
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     serializedVersion: 2
     sprites: []

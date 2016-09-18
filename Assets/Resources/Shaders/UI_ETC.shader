@@ -2,114 +2,111 @@ Shader "UI/UI_ETC"
 {
 	Properties
 	{
-		_MainTex ("Sprite Texture", 2D) = "white" {}
-		_AlphaTex ("Alpha Texture", 2D) = "white" {}
-		
-		_Color ("Tint", Color) = (1,1,1,1)
-		
-		_StencilComp ("Stencil Comparison", Float) = 8
-		_Stencil ("Stencil ID", Float) = 0
-		_StencilOp ("Stencil Operation", Float) = 0
-		_StencilWriteMask ("Stencil Write Mask", Float) = 255
-		_StencilReadMask ("Stencil Read Mask", Float) = 255
-
-		_ColorMask ("Color Mask", Float) = 15
+		_MainTex ("Base (RGB)", 2D) = "white" {}
+	    _MainTex_A("Alpha ( Alpha )", 2D) = "white" {}
 	}
-
+	
 	SubShader
 	{
-		Tags
-		{ 
-			"Queue"="Transparent" 
-			"IgnoreProjector"="True" 
-			"RenderType"="Transparent" 
-			"PreviewType"="Plane"
-			"CanUseSpriteAtlas"="True"
-		}
-		
-		Stencil
-		{
-			Ref [_Stencil]
-			Comp [_StencilComp]
-			Pass [_StencilOp] 
-			ReadMask [_StencilReadMask]
-			WriteMask [_StencilWriteMask]
-		}
+		LOD 200
 
-		Cull Off
-		Lighting Off
-		ZWrite Off
-		ZTest [unity_GUIZTestMode]
-		Blend SrcAlpha OneMinusSrcAlpha
-		ColorMask [_ColorMask]
+		Tags
+		{
+			"Queue" = "Transparent"
+			"IgnoreProjector" = "True"
+			"RenderType" = "Transparent"
+		}
 
 		Pass
 		{
-		CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
+			Cull Off
+			Lighting Off
+			ZWrite Off
+			Fog { Mode Off }
+			Offset -1, -1
+			Blend SrcAlpha OneMinusSrcAlpha
 
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag			
 			#include "UnityCG.cginc"
-			#include "UnityUI.cginc"
-			
+
+			sampler2D _MainTex;
+	        sampler2D _MainTex_A;
+			float4 _MainTex_ST;
+
 			struct appdata_t
 			{
-				float4 vertex   : POSITION;
-				float4 color    : COLOR;
+				float4 vertex : POSITION;
 				float2 texcoord : TEXCOORD0;
+				fixed4 color : COLOR;
 			};
 
 			struct v2f
 			{
-				float4 vertex   : SV_POSITION;
-				fixed4 color    : COLOR;
-				half2 texcoord  : TEXCOORD0;
-				float4 worldPosition : TEXCOORD1;
+				float4 vertex : SV_POSITION;
+				half2 texcoord : TEXCOORD0;
+				fixed4 color : COLOR;
+				fixed gray : TEXCOORD1;
 			};
+
+			v2f vert(appdata_t v)
+			{
+				v2f o;
+				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
+				o.color = v.color;
+				o.gray = dot(v.color, fixed4(1, 1, 1, 0));
+				return o;
+			}
+
+#define TEX2D_ALPHA( sampler, tex ) float4( tex2D( sampler, tex ).rgb,  tex2D( sampler##_A, tex ).r )
+
+			fixed4 frag(v2f i) : COLOR
+			{
+				fixed4 col;
+			    if (i.gray == 0)
+			    {
+				     col = TEX2D_ALPHA(_MainTex, i.texcoord) * i.color;
+				     col.rgb = dot(col.rgb, fixed3(.222,.707,.071));
+			     }
+			     else
+			     {
+				     col = TEX2D_ALPHA(_MainTex, i.texcoord) * i.color;
+			     }
+
+			     return col;
+			}
+			ENDCG
+		}
+	}
+
+	SubShader
+	{
+		LOD 100
+
+		Tags
+		{
+			"Queue" = "Transparent"
+			"IgnoreProjector" = "True"
+			"RenderType" = "Transparent"
+		}
+		
+		Pass
+		{
+			Cull Off
+			Lighting Off
+			ZWrite Off
+			Fog { Mode Off }
+			Offset -1, -1
+			//ColorMask RGB
+			Blend SrcAlpha OneMinusSrcAlpha
+			ColorMaterial AmbientAndDiffuse
 			
-			fixed4 _Color;
-			fixed4 _TextureSampleAdd;
-	
-			bool _UseClipRect;
-			float4 _ClipRect;
-
-			bool _UseAlphaClip;
-
-			v2f vert(appdata_t IN)
+			SetTexture [_MainTex]
 			{
-				v2f OUT;
-				OUT.worldPosition = IN.vertex;
-				OUT.vertex = mul(UNITY_MATRIX_MVP, OUT.worldPosition);
-
-				OUT.texcoord = IN.texcoord;
-				
-				#ifdef UNITY_HALF_TEXEL_OFFSET
-				OUT.vertex.xy += (_ScreenParams.zw-1.0)*float2(-1,1);
-				#endif
-				
-				OUT.color = IN.color * _Color;
-				return OUT;
+				Combine Texture * Primary
 			}
-
-			sampler2D _MainTex;
-			sampler2D _AlphaTex;
-
-			fixed4 frag(v2f IN) : SV_Target
-			{
-				half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
-				fixed4 alpha = tex2D(_AlphaTex, IN.texcoord);
-
-				if (_UseClipRect)
-					color *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
-				
-				if (_UseAlphaClip)
-					clip (color.a - 0.001);
-					
-				color.a = color.a * alpha.r;
-
-				return color;
-			}
-		ENDCG
 		}
 	}
 }
