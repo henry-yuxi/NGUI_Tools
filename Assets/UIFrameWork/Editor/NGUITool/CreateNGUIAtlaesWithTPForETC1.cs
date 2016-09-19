@@ -194,6 +194,9 @@ public class CreateNGUIAtlaesWithTPForETC1
         if (textureImporter == null) return;
         textureImporter.textureType = TextureImporterType.Advanced;
         textureImporter.isReadable = true;
+        textureImporter.SetPlatformTextureSettings("Android", 2048, TextureImporterFormat.RGBA32);
+        textureImporter.SetPlatformTextureSettings("Windows", 2048, TextureImporterFormat.RGBA32);
+        textureImporter.SetAllowsAlphaSplitting(false);
         AssetDatabase.ImportAsset(path);
     }
 
